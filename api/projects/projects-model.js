@@ -1,8 +1,22 @@
 const db = require('../../data/dbConfig')
 const knex = require('knex')
 
+const grabProjects = () => {
+    return db('projects as p')
+        .leftJoin('project_funders as pf', 'p.id', 'pf.project_id')
+        .leftJoin('users as u', 'p.host', 'u.id')
+        .leftJoin('users as uf', 'pf.user_id', 'uf.id')
+        .select([
+            'p.id',
+            'p.title',
+            knex.raw('(u.id || "," || u.username || "," || u.firstname || "," || u.lastname) as host'),
+            'p.description',
+            knex.raw('group_concat(uf.id || "," || uf.username || "," || uf.firstname || "," || uf.lastname, " - ") as funders')
+        ])
+        .groupBy('p.id')
+}
+
 const organizeProjectsArray = (res) => {
-    {
         const newProjects = res.map(project => {
             const hostArray = project.host.split(',')
             const hostObject = {
@@ -33,23 +47,11 @@ const organizeProjectsArray = (res) => {
             }
         })
         return newProjects
-    }
 }
 
 module.exports = {
     getAll(){
-        return db('projects as p')
-        .leftJoin('project_funders as pf', 'p.id', 'pf.project_id')
-        .leftJoin('users as u', 'p.host', 'u.id')
-        .leftJoin('users as uf', 'pf.user_id', 'uf.id')
-        .select([
-            'p.id',
-            'p.title',
-            knex.raw('(u.id || "," || u.username || "," || u.firstname || "," || u.lastname) as host'),
-            'p.description',
-            knex.raw('group_concat(uf.id || "," || uf.username || "," || uf.firstname || "," || uf.lastname, " - ") as funders')
-        ])
-        .groupBy('p.id')
+        return grabProjects()
         .then(res => {
             return organizeProjectsArray(res)
         })
@@ -58,13 +60,46 @@ module.exports = {
         })
     },
     getById(id){
-
+        return grabProjects()
+        .where('p.id', id)
+        .then(res => {
+            return organizeProjectsArray(res)
+        })
+        .then(res => {
+            if (!res[0]) {
+                return `No Project Found`
+            } else {
+                return res[0]
+            }
+        })
+        .catch(err => {
+            console.log(err.message)
+        })
     },
-    getByUserId(userId){
-
+    getAllByUserId(userId){
+        return grabProjects()
+        .where('p.host', userId)
+        .then(res => {
+            return organizeProjectsArray(res)
+        })
+        .then(res => {
+            if (!res[0]) {
+                return `No Project Found`
+            } else {
+                return res
+            }
+        })
+        .catch(err => {
+            console.log(err.message)
+        })
     },
-    create(project){
-
+    async create(project){
+        try {
+            db('projects')
+            .insert(project)
+        } catch(err) {
+            return `unable to create project`
+        }
     },
     update(id, updates){
 
@@ -72,7 +107,13 @@ module.exports = {
     delete(id) {
 
     },
-    
+    fundProject(projectId, userId){
+
+    },
+    defundProject(projectId, userId){
+
+    }
+
 }
 
 // .select('p.id')
