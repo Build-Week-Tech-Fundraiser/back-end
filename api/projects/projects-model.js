@@ -1,5 +1,4 @@
 const db = require('../../data/dbConfig')
-const knex = require('knex')
 
 const grabProjects = () => {
     return db('projects as p')
@@ -9,9 +8,9 @@ const grabProjects = () => {
         .select([
             'p.id',
             'p.title',
-            knex.raw('(u.id || "," || u.username || "," || u.firstname || "," || u.lastname) as host'),
+            db.raw('(u.id || "," || u.username || "," || u.firstname || "," || u.lastname) as host'),
             'p.description',
-            knex.raw('group_concat(uf.id || "," || uf.username || "," || uf.firstname || "," || uf.lastname, " - ") as funders')
+            db.raw('group_concat(uf.id || "," || uf.username || "," || uf.firstname || "," || uf.lastname, " - ") as funders')
         ])
         .groupBy('p.id')
 }
@@ -43,10 +42,35 @@ const organizeProjectsArray = (res) => {
             return {
                 ...project,
                 host:{...hostObject},
-                funders:[...userArray]
+                funders:[...userArray.sort(function(a, b) {
+                    return a.id - b.id
+                })]
             }
         })
         return newProjects
+}
+// checks for duplicates and deletes all except the latest one
+const deleteDuplicates = async (res, projectId) => {
+    try {
+        const table = await db('project_funders')
+        const checker = await db('project_funders').where('id', res).first()
+        const checkArray = table.map(funder=> {
+            if(funder.user_id === checker.user_id && funder.project_id === checker.project_id){
+                return funder.id
+            } else {
+                return 0
+            }
+        })
+        checkArray.forEach(async (entry) => {
+            if(entry !== 0 && entry !== checker.id) {
+                await db('project_funders').where('id', entry).delete()
+            }
+        })
+        return grabProjects().where('p.id', projectId)
+    } catch(err) {
+        return err.message
+    }
+
 }
 
 module.exports = {
@@ -73,7 +97,7 @@ module.exports = {
             }
         })
         .catch(err => {
-            console.log(err.message)
+            return err.message
         })
     },
     getAllByUserId(userId){
@@ -90,65 +114,64 @@ module.exports = {
             }
         })
         .catch(err => {
-            console.log(err.message)
+            return err.message
         })
     },
     async create(project){
         try {
-            db('projects')
-            .insert(project)
+            const [id] = await db('projects').insert(project, 'id')
+            const data = await grabProjects().where('p.id', id)
+            const newProject = await organizeProjectsArray(data)
+            return newProject[0]
         } catch(err) {
-            return `unable to create project`
+            return err.message
         }
     },
     update(id, updates){
-
+        return grabProjects()
+        .where('p.id', id)
+        .update({title:updates.title, description:updates.description})
+        .then(res => {
+            return grabProjects().where('p.id', id)
+        })
+        .then(res => {
+            return organizeProjectsArray(res)
+        })
+        .then(res => {
+            return res[0]
+        })
+        .catch(err => err.message)
     },
     delete(id) {
-
+        return grabProjects().where('p.id', id).delete()
     },
     fundProject(projectId, userId){
-
+        return db('project_funders')
+        .insert({user_id:userId, project_id:projectId})
+        .then(res => {
+            return grabProjects().where('p.id', projectId)
+        })
+        .then(res => {
+            return organizeProjectsArray(res)[0]
+        })
+        .catch(err => err.message)
     },
     defundProject(projectId, userId){
-
+        return db('project_funders as pf')
+        .where({user_id:userId, project_id:projectId})
+        .delete()
+        .then(res => {
+            return grabProjects().where('p.id', projectId)
+        })
+        .then(res => {
+            return organizeProjectsArray(res)
+        })
+        .catch(err => err.message)
     }
 
 }
 
-// .select('p.id')
-// .select('p.title')
-// .select('u.firstname as host')
-// .select( knex.raw('array_agg(uf.username) as funders'))
-
-/// selects all projects and returns funder's userid
-
-// select
-//     p.id,
-//     p.title,
-//     u.firstname hostname,
-//     group_concat(pf.user_id) as funders
-// from projects p
-// left join project_funders pf
-//     on pf.project_id = p.id
-// left join users u
-//     on p.host = u.id
-// group by p.id
-
-// selects a single person
-// select
-    // p.id,
-    // p.title,
-    // u.firstname host,
-    // group_concat(pf.user_id) as funders
-// from projects p
-// join project_funders pf
-//     on p.id = pf.project_id
-// join users u
-//     on p.host = u.id
-// where p.host = 1
-
-
+// SQLite code
 /// selects all projects returns funder names
 // select
 //     p.id,
