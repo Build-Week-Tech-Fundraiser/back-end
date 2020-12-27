@@ -14,9 +14,11 @@ server.use(express.json())
 server.use(cors())
 server.use(helmet())
 
-server.use('/api/projects')
-server.use('/api/users')
+server.use('/api/projects', restrict, projectsRouter)
+server.use('/api/users', usersRouter)
 
 server.get('/', (req, res) => {
     res.status(200).json({api:'UP'})
 })
+
+module.exports = server
