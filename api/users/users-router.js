@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const Users = require('./users-model')
+const { hasValues, hasUserPass, userIsValid } = require('../../middlewares/users-middlewares')
 
-router.get('/:username', async (req, res) => {
+router.get('/:username', hasValues, async (req, res) => {
     try {
-        
+
     } catch(err) {
         res.status(500).json({message:`Error with something along /username path`})
     }
