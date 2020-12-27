@@ -6,11 +6,16 @@ module.exports = {
             const [id] = await db('users').insert(user, 'id')
             return db('users').where({id}).first()
         } catch (err) {
-            'username taken'
+            return 'username taken'
         }
     },
     userByUsername(username){
-        return db('users').where({'username': username}).first()
+        return db('users')
+        .select('id')
+        .select('username')
+        .select('firstname')
+        .select('lastname')
+        .where({'username': username}).first()
     },
     findBy(filter) {
         return db('users').where(filter).first()
