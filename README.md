@@ -6,8 +6,8 @@ Projects
 - **[GET] /api/projects** - Get all projects
 - **[GET] /api/projects/:id** - Get specific project by id
 - **[GET] /api/projects/user/:id** - Get all user's projects by user's ID
-- **[POST] /api/projects** - Creates new project using title(string), host(int), description(string), and returns project
-- **[PUT] /api/projects/:id** - Updates project using title(string), description(string), and returns project
+- **[POST] /api/projects** - Creates new project using title (string), host (int host's ID), description (string), and returns project
+- **[PUT] /api/projects/:id** - Updates project using title (string), description (string), and returns project
 - **[DELETE] /api/projects/:id** - Deletes project, returns nothing
 
 Funders
