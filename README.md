@@ -135,8 +135,7 @@
     ]
 - **[POST] /api/projects**
     - **requires** Object with Shape: {**title**:'string', **host**:userId int, **description**:'string'}
-    ```jsx
-{
+    ```
     {
     "id": 31,
     "title": "My Project",
@@ -149,8 +148,7 @@
     "description": "My Project description",
     "funders": []
     }
-}
-    - **returns** Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+ - **returns** Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
 
 - **[PUT] /api/projects/:id**
     - **requires** Object with Shape: {**title**: 'string', **description**: 'string'}
