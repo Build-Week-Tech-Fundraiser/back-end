@@ -1,6 +1,7 @@
 # **API Endpoints - Quick References**
 
-- All endpoints besides register/login require a token to access API
+- **All endpoints besides register/login require a token to access API**
+
 Projects
 - **[GET] /api/projects** - Get all projects
 - **[GET] /api/projects/:id** - Get specific project by id
