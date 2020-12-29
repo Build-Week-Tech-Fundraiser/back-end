@@ -5,6 +5,51 @@
 
 - **[GET] /api/projects**
     - **returns** Array of Objects  with Shape:    [{**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }]
+    ``` 
+    [
+    {
+        "id": 1,
+        "title": "AAA",
+        "host": {
+            "id": 1,
+            "username": "Jxiong",
+            "firstname": "Johnny",
+            "lastname": "Xiong"
+        },
+        "description": "ah1",
+        "funders": [
+            {
+                "id": 2,
+                "username": "Koko",
+                "firstname": "Coco",
+                "lastname": "Kir"
+            },
+            {
+                "id": 3,
+                "username": "Aki",
+                "firstname": "Aki",
+                "lastname": "Rose"
+            },
+            {
+                "id": 4,
+                "username": "ZeeroDegree",
+                "firstname": "Peng",
+                "lastname": "Chang"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "title": "AAA",
+        "host": {
+            "id": 3,
+            "username": "Aki",
+            "firstname": "Aki",
+            "lastname": "Rose"
+        },
+        "description": "ah9",
+        "funders": []
+    },]
 - **[GET] /api/projects/:id**
     - **returns** 1 Object with Shape: {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
 - **[GET] /api/projects/user/:id**
@@ -30,12 +75,6 @@
 - **[POST] /api/users/register**
     - **requires** Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
     - **Returns** Object: { id: integer, username, password: "hashed string"}
-    	``` 
-		username: 'string',
-		password: 'string',
-		firstname: 'string',
-		lastname: 'string', 
-
 - **[POST] /api/users/login**
     - **requires** Object Shape: { username: "string", password: "string" }
     - **returns** Object Shape: { message: "string", token: "string" }
