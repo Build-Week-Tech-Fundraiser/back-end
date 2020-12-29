@@ -7,9 +7,11 @@ Projects
 - **[POST] /api/projects**
 - **[PUT] /api/projects/:id**
 - **[DELETE] /api/projects/:id**
+
 Funders
 - **[POST] /api/projects/:id/fund/:userid**
 - **[DELETE] /api/projects/:id/fund/:userid**
+
 Users
 - **[POST] /api/users/register**
 - **[POST] /api/users/login**
