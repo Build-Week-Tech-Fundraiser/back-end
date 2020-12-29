@@ -26,7 +26,7 @@ router.post('/login',hasUserPass, userIsValid, async (req, res) => {
     }
 })
 
-router.get('/all', async (req, res) => {
+router.get('/all', restrict, async (req, res) => {
     try {
         const users = await Users.findAll()
         res.status(200).json(users)
@@ -34,7 +34,7 @@ router.get('/all', async (req, res) => {
         res.status(500).json({message:err.message})
     }
 })
-router.get('/:username', async (req, res) => {
+router.get('/:username', restrict, async (req, res) => {
     try {
         const user = await Users.userByUsername(req.params.username)
         if(!user) {
