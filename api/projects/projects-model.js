@@ -1,5 +1,5 @@
 const db = require('../../data/dbConfig')
-
+// left joins all tables and the user table twice once as user and again as funders
 const grabProjects = () => {
     return db('projects as p')
         .leftJoin('project_funders as pf', 'p.id', 'pf.project_id')
@@ -14,7 +14,7 @@ const grabProjects = () => {
         ])
         .groupBy('p.id')
 }
-
+// goes into each object and converts the hosts to objects and funders to array of objects
 const organizeProjectsArray = (res) => {
         const newProjects = res.map(project => {
             const hostArray = project.host.split(',')
@@ -156,17 +156,11 @@ module.exports = {
         })
         .catch(err => err.message)
     },
-    defundProject(projectId, userId){
-        return db('project_funders as pf')
-        .where({user_id:userId, project_id:projectId})
-        .delete()
-        .then(res => {
-            return grabProjects().where('p.id', projectId)
-        })
-        .then(res => {
-            return organizeProjectsArray(res)
-        })
-        .catch(err => err.message)
+    async defundProject(projectId, userId){
+        const res = await db('project_funders as pf')
+            .where({ user_id: userId, project_id: projectId })
+            .delete()
+        return res
     }
 
 }

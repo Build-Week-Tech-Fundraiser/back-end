@@ -71,11 +71,14 @@ router.post('/:id/fund/:userid', checkFunderDupes, async (req, res) => {
     }
 })
 router.delete('/:id/fund/:userid', checkFunderExists, async (req, res) => {
-    console.log('defunding a project')
     try {
-        const { id, userid } = req.params
-        const defund = await Projects.defundProject(id, userid)
-        res.json(defund)
+        const deleted = await Projects.defundProject(req.params.id, req.params.userid)
+        if(deleted) {
+            const project = await Projects.getById(req.params.id)
+            res.json(project)
+        } else {
+            res.status(404).json({message:`project already defunded by user:${req.params.userid}`})
+        }
     } catch(err) {
         res.status(500).json({message:err.message})
     }

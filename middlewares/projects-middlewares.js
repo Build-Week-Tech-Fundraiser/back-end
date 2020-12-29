@@ -23,17 +23,16 @@ const checkFunderDupes = async (req, res, next) => {
 }
 
 const checkFunderExists = async (req, res, next) => {
+    console.log(`checking if funder exists`)
     try {
         const { id, userid } = req.params
         const funder = await db('project_funders as pf')
         .where({user_id:userid, project_id:id})
-        console.log(funder, 'hi')
         if (funder.length === 0){
             res.status(400).json({message:`current user ${userid} is not funding project ${id}`})
         } else {
             next()
         }
-        next()
     } catch(err) {
         res.status(500).json(err.message)
     }
