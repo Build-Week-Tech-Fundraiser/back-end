@@ -29,16 +29,9 @@ module.exports = {
   },
 
   production: {
-    client: 'sqlite3',
-    connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
-    pool: { afterCreate: (conn, done) => conn.run('PRAGMA foreign_keys = ON', done) },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+    ...sharedConfig,
+    connection: { filename: './data/tech-fundraiser'},
+    seeds: {directory: './data/seeds'}
   }
 
 };
