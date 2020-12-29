@@ -22,5 +22,13 @@ module.exports = {
     },
     findBy(filter) {
         return db('users').where(filter).first()
+    },
+    findAll() {
+        return db('users')
+        .select('id')
+        .select('username')
+        .select('firstname')
+        .select('lastname')
+        .orderBy('id')
     }
 }
