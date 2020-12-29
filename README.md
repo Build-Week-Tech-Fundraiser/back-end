@@ -30,12 +30,12 @@
 - **[POST] /api/users/register**
     - **requires** Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
     - **Returns** Object: { id: integer, username, password: "hashed string"}
-    {
+    	```{
 		username: 'string',
 		password: 'string',
 		firstname: 'string',
 		lastname: 'string',
-    }
+	}```
 - **[POST] /api/users/login**
     - **requires** Object Shape: { username: "string", password: "string" }
     - **returns** Object Shape: { message: "string", token: "string" }
