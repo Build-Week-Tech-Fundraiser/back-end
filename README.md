@@ -87,9 +87,71 @@
     }
 - **[GET] /api/projects/user/:id**
     - **returns** Array of Objects for specific userId: {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+    ```
+    [
+    {
+        "id": 1,
+        "title": "AAA",
+        "host": {
+            "id": 1,
+            "username": "Jxiong",
+            "firstname": "Johnny",
+            "lastname": "Xiong"
+        },
+        "description": "ah1",
+        "funders": [
+            {
+                "id": 2,
+                "username": "Koko",
+                "firstname": "Coco",
+                "lastname": "Kir"
+            },
+            {
+                "id": 3,
+                "username": "Aki",
+                "firstname": "Aki",
+                "lastname": "Rose"
+            },
+            {
+                "id": 4,
+                "username": "ZeeroDegree",
+                "firstname": "Peng",
+                "lastname": "Chang"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "AAA",
+        "host": {
+            "id": 1,
+            "username": "Jxiong",
+            "firstname": "Johnny",
+            "lastname": "Xiong"
+        },
+        "description": "ah2",
+        "funders": []
+    },
+    ]
 - **[POST] /api/projects**
     - **requires** Object with Shape: {**title**:'string', **host**:userId int, **description**:'string'}
+    ```jsx
+{
+    {
+    "id": 31,
+    "title": "My Project",
+    "host": {
+        "id": 1,
+        "username": "Jxiong",
+        "firstname": "Johnny",
+        "lastname": "Xiong"
+    },
+    "description": "My Project description",
+    "funders": []
+    }
+}
     - **returns** Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+
 - **[PUT] /api/projects/:id**
     - **requires** Object with Shape: {**title**: 'string', **description**: 'string'}
     - **returns** updated Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
