@@ -1,4 +1,17 @@
-# **API Endpoints - References**
+# **API Endpoints - Quick References**
+- **[GET] /api/projects**
+- **[GET] /api/projects/:id**
+- **[GET] /api/projects/user/:id**
+- **[POST] /api/projects**
+- **[PUT] /api/projects/:id**
+- **[DELETE] /api/projects/:id**
+
+- **[POST] /api/projects/:id/fund/:userid**
+- **[DELETE] /api/projects/:id/fund/:userid**
+
+- **[POST] /api/users/register**
+- **[POST] /api/users/login**
+- **[GET] /api/users/:username**
 
 ## **Projects Endpoints**
 
