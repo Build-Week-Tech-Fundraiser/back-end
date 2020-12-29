@@ -19,17 +19,17 @@
 Funder
 
 - **[POST] /api/projects/:id/fund/:userid**
-    - object {**username**: 'string'}
+    - **optional for now (info comes from the parameters :id and :userid)** object {**username**: 'string'}
 - **[DELETE] /api/projects/:id/fund/:userid**
-    - returns with updated array of users {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+    - **returns** with updated array of users {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
 
 Users
 
 - **[POST] /api/users/register**
-    - Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
-    - Returns Object: { id: integer, username, password: "hashed string"}
+    - **requires** Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
+    - **Returns** Object: { id: integer, username, password: "hashed string"}
 - **[POST] /api/users/login**
-    - requires Object Shape: { username: "string", password: "string" }
-    - returns Object Shape: { message: "string", token: "string" }
+    - **requires** Object Shape: { username: "string", password: "string" }
+    - **returns** Object Shape: { message: "string", token: "string" }
 - **[GET] /api/users/:username**
-    - returns Object Shape: { id:int, username: 'string', firstname:'string', lastname:'string'}
+    - **returns** Object Shape: { id:int, username: 'string', firstname:'string', lastname:'string'}
