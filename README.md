@@ -1,4 +1,6 @@
-## API Endpoints - References
+# **API Endpoints - References**
+
+## **Projects Endpoints**
 
 - **[GET] /api/projects**
     - **returns** Array of Objects  with Shape:    [{**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }]
@@ -198,7 +200,7 @@
 - **[DELETE] /api/projects/:id**
     - does not return anything
 
-Funder
+## **Funder Endpoints**
 
 - **[POST] /api/projects/:id/fund/:userid**
     - object {**username**: 'string'}
@@ -250,7 +252,7 @@ Funder
     }
     ```
 
-Users
+##**Users Endpoints**
 
 - **[POST] /api/users/register**
     - Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
