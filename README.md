@@ -149,10 +149,43 @@
     "funders": []
     }
  - **returns** Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
-
-- **[PUT] /api/projects/:id**
+ ```jsx
+{
+    "id": 31,
+    "title": "My Project",
+    "host": {
+        "id": 1,
+        "username": "Jxiong",
+        "firstname": "Johnny",
+        "lastname": "Xiong"
+    },
+    "description": "My Project description",
+    "funders": []
+}
+```
+**[PUT] /api/projects/:id**
     - **requires** Object with Shape: {**title**: 'string', **description**: 'string'}
-    - **returns** updated Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+    ```jsx
+    {
+    "title":"My Project EDITED",
+    "description":"My Project description PLUS EDIT"
+    }
+
+ - **returns** updated Object {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+ ```jsx
+{
+    "id": 31,
+    "title": "My Project EDITED",
+    "host": {
+        "id": 1,
+        "username": "Jxiong",
+        "firstname": "Johnny",
+        "lastname": "Xiong"
+    },
+    "description": "My Project description PLUS EDIT",
+    "funders": []
+}
+```
 - **[DELETE] /api/projects/:id**
     - does not return anything
 
