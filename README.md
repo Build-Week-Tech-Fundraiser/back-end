@@ -252,7 +252,7 @@
     }
     ```
 
-##**Users Endpoints**
+## **Users Endpoints**
 
 - **[POST] /api/users/register**
     - Object Shape: { username: "string", password: "string", firstname:"string", lastname:"string" }
