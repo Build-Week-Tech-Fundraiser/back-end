@@ -3,7 +3,7 @@ const Users = require('./users-model')
 const { hasValues, hasUserPass, userIsValid } = require('../../middlewares/users-middlewares')
 const restrict = require('../../middlewares/restricted')
 
-router.get('/:username', restrict, async (req, res) => {
+router.get('/:username', async (req, res) => {
     try {
         const user = await Users.userByUsername(req.params.username)
         if(!user) {
@@ -17,6 +17,7 @@ router.get('/:username', restrict, async (req, res) => {
 })
 router.post('/register', hasValues, async (req, res) => {
     try {
+        console.log(req.body.password)
         const newUser = await Users.register(req.body)
         if(typeof newUser.message === 'string') {
             res.status(400).json(newUser)
