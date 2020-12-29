@@ -1,21 +1,24 @@
 # **API Endpoints - Quick References**
 
+- All endpoints besides register/login require a token to access API
 Projects
-- **[GET] /api/projects**
-- **[GET] /api/projects/:id**
-- **[GET] /api/projects/user/:id**
-- **[POST] /api/projects**
-- **[PUT] /api/projects/:id**
-- **[DELETE] /api/projects/:id**
+- **[GET] /api/projects** - Get all projects
+- **[GET] /api/projects/:id** - Get specific project by id
+- **[GET] /api/projects/user/:id** - Get all user's projects by user's ID
+- **[POST] /api/projects** - Creates new project, returns project
+- **[PUT] /api/projects/:id** - Updates project title/description, returns project
+- **[DELETE] /api/projects/:id** - Deletes project, returns nothing
 
 Funders
-- **[POST] /api/projects/:id/fund/:userid**
-- **[DELETE] /api/projects/:id/fund/:userid**
+- **[POST] /api/projects/:id/fund/:userid** - Funds project using id of project and userid through path params
+- **[DELETE] /api/projects/:id/fund/:userid** - De-fund project using id of project and userid through path params
 
 Users
-- **[POST] /api/users/register**
-- **[POST] /api/users/login**
-- **[GET] /api/users/:username**
+- **[POST] /api/users/register** - Registers a new user, returns user info
+- **[POST] /api/users/login** - Logs-in, returns message and token
+- **[GET] /api/users/:username** - Returns user info using registered username
+
+# **How the data should look**
 
 ## **Projects Endpoints**
 
