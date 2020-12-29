@@ -34,8 +34,8 @@
 		username: 'string',
 		password: 'string',
 		firstname: 'string',
-		lastname: 'string',
-	}```
+		lastname: 'string', }
+
 - **[POST] /api/users/login**
     - **requires** Object Shape: { username: "string", password: "string" }
     - **returns** Object Shape: { message: "string", token: "string" }
