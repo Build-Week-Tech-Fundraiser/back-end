@@ -49,9 +49,42 @@
         },
         "description": "ah9",
         "funders": []
-    },]
+    },
+    ]
 - **[GET] /api/projects/:id**
     - **returns** 1 Object with Shape: {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+    ``` 
+    {
+    "id": 3,
+    "title": "AAA",
+    "host": {
+        "id": 2,
+        "username": "Koko",
+        "firstname": "Coco",
+        "lastname": "Kir"
+    },
+    "description": "ah3",
+    "funders": [
+        {
+            "id": 1,
+            "username": "Jxiong",
+            "firstname": "Johnny",
+            "lastname": "Xiong"
+        },
+        {
+            "id": 4,
+            "username": "ZeeroDegree",
+            "firstname": "Peng",
+            "lastname": "Chang"
+        },
+        {
+            "id": 5,
+            "username": "Doro",
+            "firstname": "Donny",
+            "lastname": "Don"
+        }
+            ]
+    }
 - **[GET] /api/projects/user/:id**
     - **returns** Array of Objects for specific userId: {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
 - **[POST] /api/projects**
