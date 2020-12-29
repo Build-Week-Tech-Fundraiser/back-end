@@ -6,8 +6,8 @@ Projects
 - **[GET] /api/projects** - Get all projects
 - **[GET] /api/projects/:id** - Get specific project by id
 - **[GET] /api/projects/user/:id** - Get all user's projects by user's ID
-- **[POST] /api/projects** - Creates new project, returns project
-- **[PUT] /api/projects/:id** - Updates project title/description, returns project
+- **[POST] /api/projects** - Creates new project using title(string), host(int), description(string), and returns project
+- **[PUT] /api/projects/:id** - Updates project using title(string), description(string), and returns project
 - **[DELETE] /api/projects/:id** - Deletes project, returns nothing
 
 Funders
@@ -15,8 +15,8 @@ Funders
 - **[DELETE] /api/projects/:id/fund/:userid** - De-fund project using id of project and userid through path params
 
 Users
-- **[POST] /api/users/register** - Registers a new user, returns user info
-- **[POST] /api/users/login** - Logs-in, returns message and token
+- **[POST] /api/users/register** - Registers a new user using username, password, firstname, lastname, and returns user info
+- **[POST] /api/users/login** - Logs-in using username, password, and returns message and token
 - **[GET] /api/users/:username** - Returns user info using registered username
 
 # **How the data should look**
