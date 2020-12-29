@@ -224,8 +224,8 @@ Users
 ## **Funder Endpoints**
 
 - **[POST] /api/projects/:id/fund/:userid**
-    - object {**username**: 'string'}
-    - Return example: /api/projects/31/fund/4
+    - **(optional)** object {**username**: 'string'}
+    - **returns** example: /api/projects/31/fund/4
 
     ```jsx
     {
@@ -256,7 +256,7 @@ Users
 ```
 
 - **[DELETE] /api/projects/:id/fund/:userid**
-    - returns with updated array of users {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
+    - **returns** an updated array of users {**id**:int,  **title**: 'string', **host**: {object of a user w/id,username, firstname, lastname}, **description**: 'string', **funders:** ArrayofUserObjects[] }
 
     ```jsx
     {
