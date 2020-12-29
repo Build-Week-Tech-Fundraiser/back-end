@@ -18,7 +18,7 @@ router.get('/:username', restrict, async (req, res) => {
 router.post('/register', hasValues, async (req, res) => {
     try {
         const newUser = await Users.register(req.body)
-        if(typeof newUser === 'string') {
+        if(typeof newUser.message === 'string') {
             res.status(400).json(newUser)
           } else {
             res.status(201).json(newUser)

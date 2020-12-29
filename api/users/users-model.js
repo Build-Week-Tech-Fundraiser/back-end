@@ -6,7 +6,10 @@ module.exports = {
             const [id] = await db('users').insert(user, 'id')
             return db('users').where({id}).first()
         } catch (err) {
-            return 'username taken'
+            return {
+                message:`Username Taken`,
+                error: err.message
+            }
         }
     },
     userByUsername(username){
