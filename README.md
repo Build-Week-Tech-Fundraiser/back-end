@@ -221,7 +221,7 @@ Users
 - **[DELETE] /api/projects/:id**
     - does not return anything
 
-## **Funder Endpoints**
+## **Fund Endpoints**
 
 - **[POST] /api/projects/:id/fund/:userid**
     - **(optional)** object {**username**: 'string'}
