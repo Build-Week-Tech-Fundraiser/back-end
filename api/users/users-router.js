@@ -2,16 +2,15 @@ const router = require('express').Router()
 const Users = require('./users-model')
 const { hasValues, hasUserPass, userIsValid } = require('../../middlewares/users-middlewares')
 const restrict = require('../../middlewares/restricted')
-
+const makeToken = require('../../utils/makeToken')
 
 router.post('/register', hasValues, async (req, res) => {
     try {
-        console.log(req.body.password)
         const newUser = await Users.register(req.body)
         if(typeof newUser.message === 'string') {
             res.status(400).json(newUser)
           } else {
-            res.status(201).json(newUser)
+            res.status(201).json({...newUser, token:makeToken(req.body)})
           }
     } catch(err) {
         res.status(500).json({message:`Error with something along /register path`})
