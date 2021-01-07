@@ -40,5 +40,73 @@ describe('endpoints for /api/users', () => {
             const res = await request(server).post('/register').send(user1)
             expect(res.body.password).not.toHaveProperty('password', user1.password)
         })
+        it('returns token on success', async () => {
+            const res = await request(server).post('/register').send(user1)
+            expect(res.body).toHaveProperty('token')
+        })
+        it('responds with 400 on error', async () => {
+            await db('users').insert(user1)
+            const res = await request(server).post('/register').send(user1)
+            expect(res.status).toBe(400)
+        })
+        it('responds with message on error', async () => {
+            await db('users').insert(user1)
+            const res = await request(server).post('/register').send(user1)
+            expect(res.body).toHaveProperty('message')
+        })
+    })
+    describe('[POST] /login', () => {
+        it('responds with 200 on success', async () => {
+            await request(server).post('/register').send(user1)
+            const res = await request(server).post('/login').send(user1)
+            expect(res.status).toBe(200)
+        })
+        it('returns object with message and token on success', async () => {
+            await request(server).post('/register').send(user1)
+            const res = await request(server).post('/login').send(user1)
+            expect(res.body).toHaveProperty('token')
+            expect(res.body).toHaveProperty('message')
+        })
+        it("returns error if missing login info", async () => {
+            await request(server).post('/register').send(user1)
+            const res = await request(server).post('/login').send({username:'testuser', password:'abc1234'})
+            expect(JSON.stringify(res.body)).toMatch(/invalid/)
+
+        })
+    })
+    describe('[GET] /all', () => {
+        it('returns message if no token is in header', async () => {
+            const res = await request(server).get('/all')
+            expect(res.body).toHaveProperty('message')
+        })
+        it('returns array of existing users', async () => {
+            const user = await request(server).post('/register').send(user1)
+            let res = await request(server).get('/all').set({Authorization:user.body.token})
+            expect(res.body).toHaveLength(1)
+            await db('users').insert(user2)
+            res = await request(server).get('/all').set({Authorization:user.body.token})
+            expect(res.body).toHaveLength(2)
+            expect(res.body[0]).toHaveProperty('username', user1.username)
+            expect(res.body[1]).toHaveProperty('username', user2.username)
+        })
+    })
+    describe('[GET] /:username', () => {
+        it('returns messge if no token is in header', async () => {
+            const res = await request(server).get('/testUser')
+            expect(res.body).toHaveProperty('message')
+        })
+        it('returns user object with id, username, firstname, lastname', async () => {
+            const user = await request(server).post('/register').send(user1)
+            let res = await request(server).get('/testUser').set({Authorization:user.body.token})
+            expect(res.body).toHaveProperty('id')
+            expect(res.body).toHaveProperty('username')
+            expect(res.body).toHaveProperty('firstname')
+            expect(res.body).toHaveProperty('lastname')
+        })
+        it('returns message if user does not exist', async () => {
+            const user = await request(server).post('/register').send(user1)
+            let res = await request(server).get('/tetUser').set({Authorization:user.body.token})
+            expect(res.body).toHaveProperty('message')
+        })
     })
 })
