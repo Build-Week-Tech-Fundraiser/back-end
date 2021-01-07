@@ -36,7 +36,7 @@ module.exports = {
 
   production: {
     ...sharedConfig,
-    connection: { filename: './data/tech-fundraiser'},
+    connection: { filename: './data/tech-fundraiser.db3'},
     seeds: {directory: './data/seeds'}
   }
 

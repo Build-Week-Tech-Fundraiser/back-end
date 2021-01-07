@@ -24,7 +24,7 @@ afterAll( async () => {
     await db.destroy()
 })
 
-describe('endpoints for /api/users', () => {
+describe.skip('endpoints for /api/users', () => {
     describe('[POST] /register', () => {
         it('reponds with 201 on success', async () => {
             const res = await request(server).post('/register').send(user1)

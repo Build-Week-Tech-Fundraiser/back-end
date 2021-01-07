@@ -15,7 +15,7 @@ afterAll( async () => {
     await db.destroy()
 })
 
-describe('User-model', () => {
+describe.skip('User-model', () => {
     describe('Users.register', () => {
         it('User.register, registers a new user on db', async () => {
             const initialUsers = await db('users')
