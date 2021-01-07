@@ -165,7 +165,7 @@ module.exports = {
 
 }
 
-// SQLite code
+// SQLite code for reference
 /// selects all projects returns funder names
 // select
 //     p.id,
