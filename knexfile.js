@@ -11,7 +11,7 @@ module.exports = {
 
   development: {
     ...sharedConfig,
-    connection: { filename: './data/tech-fundraiser.db3'},
+    connection: { filename: './data/tech-fundraiser-dev.db3'},
     seeds: {directory: './data/seeds'}
   },
 
