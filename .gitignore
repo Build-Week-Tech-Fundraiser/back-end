@@ -115,4 +115,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-data/tech-fundraiser
+tech-fundraiser.db3
+test.db3
