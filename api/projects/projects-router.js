@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const Projects = require('./projects-model')
-const { checkFunderDupes, checkFunderExists } = require('../../middlewares/projects-middlewares')
+const { checkFunderDupes, checkFunderExists, checkForInputs } = require('../../middlewares/projects-middlewares')
 
 router.get('/', async (req, res) => {
     console.log('Looking for projects')
@@ -33,7 +33,7 @@ router.get('/user/:id', async (req, res) => {
         res.status(500).json({message:err.message})
     }
 })
-router.post('/', async (req, res) => {
+router.post('/', checkForInputs, async (req, res) => {
     console.log('creating new project')
     try {
         const newProject = await Projects.create(req.body)
@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
         res.status(500).json({message:err.message})
     }
 })
-router.put('/:id', async (req, res) => {
+router.put('/:id', checkForInputs, async (req, res) => {
     console.log('updating a project')
     try {
         const updatedProject = await Projects.update(req.params.id, req.body)

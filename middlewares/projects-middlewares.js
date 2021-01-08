@@ -38,7 +38,25 @@ const checkFunderExists = async (req, res, next) => {
     }
 }
 
+const checkForInputs = async (req, res, next) => {
+    console.log(`checking inputs`)
+    try {
+        const { id } = req.params
+        const {title, host, description} = req.body
+        if(!id && (!title || !host || !description)) {
+            res.status(400).json({message:`missing title, host, description`})
+        } else if(id &&(!title || !description)) {
+            res.status(400).json({message:`missing updated title and description`})
+        } else {
+            next()
+        }
+    } catch(err) {
+        res.status(500).json(err.message)
+    }
+}
+
 module.exports = {
     checkFunderDupes,
-    checkFunderExists
+    checkFunderExists,
+    checkForInputs
 }
